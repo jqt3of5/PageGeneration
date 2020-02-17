@@ -11,13 +11,13 @@ namespace Pages
         }
     }
 
-    public interface Page<T> where T : EstimateWindow
+    /*public interface Page<T> where T : EstimateWindow
     {
-        T Window { get; }
-    }
+       // T Window { get; }
+    }*/
 
     [Page(WindowType = typeof(EstimateWindow))]
-    public interface CauseOfLossPage : Page<EstimateWindow>
+    public interface CauseOfLossPage //: Page<EstimateWindow>
     {
         [Element(Locator="element1")]
         Element Element1 { get; }
@@ -25,10 +25,10 @@ namespace Pages
         [Element(Locator = "element2")]
         Element Element2 { get; }
 
-        String element3 { get; }
+ 
 
         [Element(Locator = "element4")]
-        String element4 { get; }
+        Element element4 { get; }
     }
 
     static class CauseOfLossPageExtensions

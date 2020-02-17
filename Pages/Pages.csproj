@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <UsingTask TaskName="BuildPages" AssemblyFile="Page.Generator.dll"></UsingTask>
+  <UsingTask TaskName="Page.Generator.BuildPages" AssemblyFile="bin\Debug\netstandard2.0\Page.Generator.dll" />
   
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -11,15 +11,32 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Page.Core\Page.Core.csproj" />
-    <ProjectReference Include="..\PageGenerator\Page.Generator.csproj" />
   </ItemGroup>
 
-  <Target Name="BuildInterfaces" BeforeTargets="GeneratePageImplementation">
-    <CSC Sources ="@(Compile)" OutputAssembly="Pages.Interfaces.dll"/>
-  </Target>
-  
-  <Target Name="GeneratePageImplementations" DependsOnTargets="BuildInterfaces" BeforeTargets="Build">
-    <BuildPages InterfacesAssembly="Pages.Interfaces.dll"></BuildPages>
+  <ItemGroup>
+    <None Update="Page.Core.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Page.Generator.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="System.CodeDom.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup> 
+
+  <ItemGroup>
+    <Folder Include="generated\" />
+  </ItemGroup>
+
+
+  <Target Name="AfterBuild2" DependsOnTargets="$(BuildDependsOn)">
+
+    <Message Importance="high" Text="Before Build Pages" />
+    <BuildPages InterfacesAssembly="Pages" />
+    <Message Importance="high" Text="After Build Pages" />
+    <Csc Sources="*.cs;generated\*.g.cs" References="Page.Core.dll" OutputAssembly="Pages.generated.dll" />
+   
   </Target>
   
 </Project>

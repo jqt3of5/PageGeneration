@@ -15,10 +15,11 @@ namespace Page.Generator
     {
         CodeTypeDeclaration targetClass;
         CodeCompileUnit targetUnit;
-        public PageBuilder(string className, string baseName)
+        public PageBuilder(string className, string baseName, string namespaceName)
         {
-            var pageGeneratorNamespace = new CodeNamespace("PageGenerator");
+            var pageGeneratorNamespace = new CodeNamespace(namespaceName);
             pageGeneratorNamespace.Imports.Add(new CodeNamespaceImport("System"));
+            pageGeneratorNamespace.Imports.Add(new CodeNamespaceImport("Page.Core"));
 
             targetClass = new CodeTypeDeclaration(className);
             targetClass.IsClass = true;
@@ -55,6 +56,20 @@ namespace Page.Generator
             
             property.GetStatements.Add(expression);
 
+            targetClass.Members.Add(property);
+
+            return this;
+        }
+
+        public PageBuilder AddProperty(PropertyInfo propertyInfo)
+        {
+            var property = new CodeMemberProperty();
+            property.Attributes = (System.CodeDom.MemberAttributes)propertyInfo.Attributes;
+            property.Name = propertyInfo.Name;
+            property.Type = new CodeTypeReference(propertyInfo.PropertyType);
+            property.HasGet = true;
+            property.HasSet = true;
+            
             targetClass.Members.Add(property);
 
             return this;
