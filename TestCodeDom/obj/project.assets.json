@@ -1,0 +1,147 @@
+{
+  "version": 3,
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "System.CodeDom/4.7.0": {
+        "type": "package",
+        "compile": {
+          "ref/netstandard2.0/System.CodeDom.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.CodeDom.dll": {}
+        }
+      },
+      "Page.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/Page.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Page.Core.dll": {}
+        }
+      },
+      "Page.Generator/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "System.CodeDom": "4.7.0"
+        },
+        "compile": {
+          "bin/placeholder/Page.Generator.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Page.Generator.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "System.CodeDom/4.7.0": {
+      "sha512": "Hs9pw/kmvH3lXaZ1LFKj3pLQsiGfj2xo3sxSzwiLlRL6UcMZUTeCfoJ9Udalvn3yq5dLlPEZzYegrTQ1/LhPOQ==",
+      "type": "package",
+      "path": "system.codedom/4.7.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net461/System.CodeDom.dll",
+        "lib/net461/System.CodeDom.xml",
+        "lib/netstandard2.0/System.CodeDom.dll",
+        "lib/netstandard2.0/System.CodeDom.xml",
+        "ref/net461/System.CodeDom.dll",
+        "ref/net461/System.CodeDom.xml",
+        "ref/netstandard2.0/System.CodeDom.dll",
+        "ref/netstandard2.0/System.CodeDom.xml",
+        "system.codedom.4.7.0.nupkg.sha512",
+        "system.codedom.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "Page.Core/1.0.0": {
+      "type": "project",
+      "path": "../Page.Core/Page.Core.csproj",
+      "msbuildProject": "../Page.Core/Page.Core.csproj"
+    },
+    "Page.Generator/1.0.0": {
+      "type": "project",
+      "path": "../PageGenerator/Page.Generator.csproj",
+      "msbuildProject": "../PageGenerator/Page.Generator.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    ".NETCoreApp,Version=v3.1": [
+      "Page.Core >= 1.0.0",
+      "Page.Generator >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\jqt3o\\.nuget\\packages\\": {},
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Users\\jqt3o\\source\\repos\\TestCodeDom\\TestCodeDom\\TestCodeDom.csproj",
+      "projectName": "TestCodeDom",
+      "projectPath": "C:\\Users\\jqt3o\\source\\repos\\TestCodeDom\\TestCodeDom\\TestCodeDom.csproj",
+      "packagesPath": "C:\\Users\\jqt3o\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\jqt3o\\source\\repos\\TestCodeDom\\TestCodeDom\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Microsoft\\Xamarin\\NuGet\\"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\jqt3o\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "netcoreapp3.1"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "projectReferences": {
+            "C:\\Users\\jqt3o\\source\\repos\\TestCodeDom\\Page.Core\\Page.Core.csproj": {
+              "projectPath": "C:\\Users\\jqt3o\\source\\repos\\TestCodeDom\\Page.Core\\Page.Core.csproj"
+            },
+            "C:\\Users\\jqt3o\\source\\repos\\TestCodeDom\\PageGenerator\\Page.Generator.csproj": {
+              "projectPath": "C:\\Users\\jqt3o\\source\\repos\\TestCodeDom\\PageGenerator\\Page.Generator.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "netcoreapp3.1": {
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

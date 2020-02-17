@@ -1,0 +1,7 @@
+C:\Users\jqt3o\source\repos\TestCodeDom\PageGenerator\bin\Debug\netstandard2.0\Page.Generator.deps.json
+C:\Users\jqt3o\source\repos\TestCodeDom\PageGenerator\bin\Debug\netstandard2.0\Page.Generator.dll
+C:\Users\jqt3o\source\repos\TestCodeDom\PageGenerator\bin\Debug\netstandard2.0\Page.Generator.pdb
+C:\Users\jqt3o\source\repos\TestCodeDom\PageGenerator\obj\Debug\netstandard2.0\Page.Generator.AssemblyInfoInputs.cache
+C:\Users\jqt3o\source\repos\TestCodeDom\PageGenerator\obj\Debug\netstandard2.0\Page.Generator.AssemblyInfo.cs
+C:\Users\jqt3o\source\repos\TestCodeDom\PageGenerator\obj\Debug\netstandard2.0\Page.Generator.dll
+C:\Users\jqt3o\source\repos\TestCodeDom\PageGenerator\obj\Debug\netstandard2.0\Page.Generator.pdb

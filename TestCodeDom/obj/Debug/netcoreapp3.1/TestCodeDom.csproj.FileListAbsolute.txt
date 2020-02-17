@@ -1,0 +1,3 @@
+C:\Users\jqt3o\source\repos\TestCodeDom\TestCodeDom\obj\Debug\netcoreapp3.1\TestCodeDom.csprojAssemblyReference.cache
+C:\Users\jqt3o\source\repos\TestCodeDom\TestCodeDom\obj\Debug\netcoreapp3.1\TestCodeDom.AssemblyInfoInputs.cache
+C:\Users\jqt3o\source\repos\TestCodeDom\TestCodeDom\obj\Debug\netcoreapp3.1\TestCodeDom.AssemblyInfo.cs
