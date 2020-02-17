@@ -4,10 +4,10 @@ namespace PageGenerator
 {
     public class PageSource
     {
-       public static T For<T>() 
+       /*public static T For<T>() 
         {
             
-        }
+        }*/
 
 
     }

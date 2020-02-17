@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <UsingTask TaskName="BuildPages" AssemblyFile="Page.Generator.dll"></UsingTask>
+  
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ApplicationIcon />
+    <OutputType>Library</OutputType>
+    <StartupObject></StartupObject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Page.Core\Page.Core.csproj" />
+    <ProjectReference Include="..\PageGenerator\Page.Generator.csproj" />
+  </ItemGroup>
+
+  <Target Name="BuildInterfaces" BeforeTargets="GeneratePageImplementation">
+    <CSC Sources ="@(Compile)" OutputAssembly="Pages.Interfaces.dll"/>
+  </Target>
+  
+  <Target Name="GeneratePageImplementations" DependsOnTargets="BuildInterfaces" BeforeTargets="Build">
+    <BuildPages InterfacesAssembly="Pages.Interfaces.dll"></BuildPages>
+  </Target>
+  
+</Project>

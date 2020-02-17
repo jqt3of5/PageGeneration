@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCodeDom", "TestCodeDom\TestCodeDom.csproj", "{957DD244-3713-475B-9EA7-91EF93214EC5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestCodeDom", "TestCodeDom\TestCodeDom.csproj", "{957DD244-3713-475B-9EA7-91EF93214EC5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Page.Generator", "PageGenerator\Page.Generator.csproj", "{39CB929F-DB90-4985-940B-406759F5CEB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Page.Generator", "PageGenerator\Page.Generator.csproj", "{39CB929F-DB90-4985-940B-406759F5CEB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Page.Core", "Page.Core\Page.Core.csproj", "{97C51784-0EC0-46EB-B766-0E0B7E5A8C17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Page.Core", "Page.Core\Page.Core.csproj", "{97C51784-0EC0-46EB-B766-0E0B7E5A8C17}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pages", "Pages\Pages.csproj", "{358ABCA7-1A65-4C1B-946B-0EAE7E230214}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{97C51784-0EC0-46EB-B766-0E0B7E5A8C17}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97C51784-0EC0-46EB-B766-0E0B7E5A8C17}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97C51784-0EC0-46EB-B766-0E0B7E5A8C17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{358ABCA7-1A65-4C1B-946B-0EAE7E230214}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{358ABCA7-1A65-4C1B-946B-0EAE7E230214}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{358ABCA7-1A65-4C1B-946B-0EAE7E230214}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{358ABCA7-1A65-4C1B-946B-0EAE7E230214}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

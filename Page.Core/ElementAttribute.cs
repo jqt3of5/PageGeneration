@@ -7,12 +7,14 @@ namespace Page.Core
     [System.AttributeUsage(System.AttributeTargets.Property)]
     public class ElementAttribute : System.Attribute
     {
-        public ElementAttribute(string findBy)
+        public ElementAttribute()
         {
 
         }
 
-        public ElementAttribute parent;
+        public string Locator { get; set; }
+
+        public string FindBy { get; set; } = "";
 
     }
 }

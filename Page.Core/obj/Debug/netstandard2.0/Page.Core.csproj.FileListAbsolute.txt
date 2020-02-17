@@ -1,7 +1,0 @@
-C:\Users\jqt3o\source\repos\TestCodeDom\Page.Core\bin\Debug\netstandard2.0\Page.Core.deps.json
-C:\Users\jqt3o\source\repos\TestCodeDom\Page.Core\bin\Debug\netstandard2.0\Page.Core.dll
-C:\Users\jqt3o\source\repos\TestCodeDom\Page.Core\bin\Debug\netstandard2.0\Page.Core.pdb
-C:\Users\jqt3o\source\repos\TestCodeDom\Page.Core\obj\Debug\netstandard2.0\Page.Core.AssemblyInfoInputs.cache
-C:\Users\jqt3o\source\repos\TestCodeDom\Page.Core\obj\Debug\netstandard2.0\Page.Core.AssemblyInfo.cs
-C:\Users\jqt3o\source\repos\TestCodeDom\Page.Core\obj\Debug\netstandard2.0\Page.Core.dll
-C:\Users\jqt3o\source\repos\TestCodeDom\Page.Core\obj\Debug\netstandard2.0\Page.Core.pdb
