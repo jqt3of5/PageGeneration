@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Page.Generator.Console": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\Users\\jqt3o\\source\\repos\\TestCodeDom\\Pages"
+    }
+  }
+}

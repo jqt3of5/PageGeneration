@@ -28,14 +28,12 @@
   <ItemGroup>
     <Folder Include="generated\" />
   </ItemGroup>
+  
+  <Target Name="BeforeBuild" BeforeTargets="Build">
 
-
-  <Target Name="AfterBuild2" DependsOnTargets="$(BuildDependsOn)">
-
-    <Message Importance="high" Text="Before Build Pages" />
-    <BuildPages InterfacesAssembly="Pages" />
-    <Message Importance="high" Text="After Build Pages" />
-    <Csc Sources="*.cs;generated\*.g.cs" References="Page.Core.dll" OutputAssembly="Pages.generated.dll" />
+    <Message Importance="high" Text="BeforeBuild"/>
+    <Delete Files="generated\*.g.cs"/>
+    <BuildPages OutputDir="generated\"/>
    
   </Target>
   
