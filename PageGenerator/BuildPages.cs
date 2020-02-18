@@ -17,54 +17,80 @@ namespace Page.Generator
 
         public override bool Execute()
         {
-            foreach(var file in Directory.GetFiles(".", "*.cs"))
+            var assemblyPath = Path.GetDirectoryName(typeof(object).Assembly.Location);
+
+            var trees = Directory
+                .GetFiles(".", "*.cs")
+                .Select(file => File.ReadAllText(file))
+                //This ToList is necessary! No idea why. 
+                .Select(source => CSharpSyntaxTree.ParseText(source)).ToList();
+                
+            var compilation = CSharpCompilation
+                .Create("Pages.Interface")
+                .WithOptions(new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary))
+                .AddReferences(MetadataReference.CreateFromFile(typeof(object).Assembly.Location), 
+                                MetadataReference.CreateFromFile(Path.Combine(assemblyPath, "mscorlib.dll")),
+                                MetadataReference.CreateFromFile(Path.Combine(assemblyPath, "System.dll")),
+                                MetadataReference.CreateFromFile(Path.Combine(assemblyPath, "System.Core.dll")),
+                                MetadataReference.CreateFromFile(Path.Combine(assemblyPath, "System.Runtime.dll")),
+                                MetadataReference.CreateFromFile(typeof(ElementAttribute).Assembly.Location))
+                .AddSyntaxTrees(trees);
+            
+            foreach (var d in compilation.GetDiagnostics())
             {
-                var source = File.ReadAllText(file);
-                var tree = CSharpSyntaxTree.ParseText(source);
+                Console.WriteLine(CSharpDiagnosticFormatter.Instance.Format(d));
+            }
 
-               
-                var compilation = CSharpCompilation
-                    .Create("Pages.Interface")
-                    .AddReferences(MetadataReference.CreateFromFile(typeof(string).Assembly.Location),
-                                    MetadataReference.CreateFromFile(typeof(ElementAttribute).Assembly.Location))
-                    .AddSyntaxTrees(tree);
-
+            foreach (var tree in trees)
+            {
                 var model = compilation.GetSemanticModel(tree);
-
-                foreach (var d in compilation.GetDiagnostics())
-                {
-                    Console.WriteLine(CSharpDiagnosticFormatter.Instance.Format(d));
-                }
-
                 var rootNode = tree.GetCompilationUnitRoot();
-                //var rootNode = tree.GetRoot();
 
-                var interfaceNodes = rootNode
+                var interfacePageNodes = rootNode
                     .DescendantNodes()
-                    .OfType<InterfaceDeclarationSyntax>();
-                foreach (var node in interfaceNodes)
-                {
-                    var attributes = model.GetTypeInfo(node).Type.GetAttributes();
-                    
-                }
-                    /*.Where(c =>
+                    .OfType<InterfaceDeclarationSyntax>()
+                    .Where(c =>
                         model
-                        .GetTypeInfo(c)
-                        .Type.GetAttributes()
+                        .GetDeclaredSymbol(c)
+                        .GetAttributes()
                         .Any(attribute =>
-                            attribute.AttributeClass.Name == typeof(PageAttribute).Name));*/
+                            attribute.AttributeClass.Name == typeof(PageAttribute).Name));
 
-                foreach (var interfaceNode in interfaceNodes)
+                foreach (var interfaceNode in interfacePageNodes)
                 {
-                    foreach(var propertyNode in interfaceNode.Members.OfType<PropertyDeclarationSyntax>())
-                    {
+                    var namespaceName = model.GetDeclaredSymbol(interfaceNode).ContainingNamespace.Name;
+                    var generator = new PageBuilder(interfaceNode.Identifier.Text + "_generated", interfaceNode.Identifier.Text, namespaceName);
 
-                        var elementAttributes = model.GetSymbolInfo(propertyNode).Symbol.GetAttributes().Where(attribute => attribute.AttributeClass.Name == typeof(ElementAttribute).Name);
+                    var nonAccessorMethods = interfaceNode
+                        .DescendantNodes()
+                        .OfType<MethodDeclarationSyntax>();
+
+                    if (nonAccessorMethods.Any())
+                    {
+                        foreach (var method in nonAccessorMethods)
+                        {
+                            Log.LogError("Methods are not supported on Page object interfaces. Please use extension methods (Method: " + method.Identifier.Text + ", Page: " + interfaceNode.Identifier.Text + ")");
+                        }
+                        return false;
+                    }
+
+                    var properties = interfaceNode
+                        .DescendantNodes()
+                        .OfType<PropertyDeclarationSyntax>();
+
+                    foreach (var propertyNode in properties)
+                    {
+                        var elementAttributes =
+                            model
+                            .GetDeclaredSymbol(propertyNode)
+                            .GetAttributes()
+                            .Where(attribute => attribute.AttributeClass.Name == typeof(ElementAttribute).Name);
 
                         if (elementAttributes.Count() > 1)
                         {
                             Log.LogWarning("Property: " + propertyNode.Identifier + " has multiple Element attributes. Only the last one will be used");
                         }
+
                         if (elementAttributes.Count() > 0)
                         {
                             var attribute = elementAttributes.LastOrDefault();
@@ -74,9 +100,9 @@ namespace Page.Generator
                                 Log.LogError("Property: " + propertyNode.Identifier + " must have the Locator property set on the Element attribute");
                                 return false;
                             }
-                            var findBy = attribute.NamedArguments.FirstOrDefault(arg => arg.Key == "FindBy").Value;
-                            
-                            //generator.AddElementProperty(propertyNode.Identifier, property.PropertyType, locator, findBy);
+                            var findBy = attribute.NamedArguments.FirstOrDefault(arg => arg.Key == "FindBy").Value.Value as string;
+
+                            generator.AddElementProperty(propertyNode.Identifier.Text, propertyNode.Type.ToString(), locator, findBy);
                         }
                         else
                         {
@@ -84,66 +110,9 @@ namespace Page.Generator
                             return false;
                         }
                     }
+                    generator.GenerateCSharpCode(OutputDir + interfaceNode.Identifier.Text + ".g.cs");
                 }
             }
-
-            
-
-           /* var pageInterfaces = AppDomain.CurrentDomain.GetAssemblies()
-                .SelectMany(s =>
-                    s.GetTypes())
-                    .Where(t =>
-                        t.CustomAttributes.Any(a =>
-                            a.AttributeType == typeof(PageAttribute)));
-
-            foreach (var page in pageInterfaces)
-            {
-                var generator = new PageBuilder(page.Name + "_generated", page.Name, page.Namespace);
-
-                var nonAccessorMethods = page.GetMethods().Where(m => !page.GetProperties().Any(p => m.Name.EndsWith(p.Name)));
-                if (nonAccessorMethods.Any())
-                {
-                    foreach (var method in nonAccessorMethods)
-                    {
-                        Log.LogError("Methods are not supported on Page object interfaces. Please use extension methods (Method: " + method.Name + ", Page: " + page.Name + ")");
-                    }
-                    return false;
-                }
-                
-                
-                foreach (var property in page.GetProperties()) 
-                {
-                    var elementAttributions = property.CustomAttributes.Count(a => a.AttributeType == typeof(ElementAttribute));
-                    if (elementAttributions > 1)
-                    {
-                        Log.LogWarning("Property: " + property.Name + " has multiple Element attributes. Only the first one will be used");
-                    }
-
-                    if (elementAttributions > 0)
-                    {
-                        var elementAttribute = property.CustomAttributes.FirstOrDefault(a => a.AttributeType == typeof(ElementAttribute));
-                        var locator = elementAttribute.NamedArguments.FirstOrDefault(a => a.MemberName == "Locator").TypedValue.Value as string;
-
-                        if (locator == null || locator == "")
-                        {
-                            Log.LogError("Property: " + property.Name + " must have the Locator property set on the Element attribute");
-                            return false;
-                        }
-
-                        var findBy = elementAttribute.NamedArguments.FirstOrDefault(a => a.MemberName == "FindBy").TypedValue.Value as string;
-                        generator.AddElementProperty(property.Name, property.PropertyType, locator, findBy);
-                    }
-                    else
-                    {
-                        Log.LogError("Property: " + property.Name + " must be attributed with ElementAttribute");
-                        return false;
-                        //generator.AddProperty(property);
-                    }
-                }
-                
-                generator.GenerateCSharpCode("generated/" + page.Name + ".g.cs");
-            }
-            */
             return true;
         }
     }

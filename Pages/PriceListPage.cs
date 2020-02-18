@@ -17,15 +17,13 @@ namespace Pages
     }*/
 
     [Page(WindowType = typeof(EstimateWindow))]
-    public interface CauseOfLossPage //: Page<EstimateWindow>
+    public interface CauseOfLossPage 
     {
         [Element(Locator="element1")]
         Element Element1 { get; }
         
         [Element(Locator = "element2")]
         Element Element2 { get; }
-
- 
 
         [Element(Locator = "element4")]
         Element element4 { get; }

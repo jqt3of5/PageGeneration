@@ -33,19 +33,19 @@ namespace Page.Generator
             targetUnit.Namespaces.Add(pageGeneratorNamespace);
         }
 
-        public PageBuilder AddElementProperty(string name, Type type, string locator, string findBy)
+        public PageBuilder AddElementProperty(string name, string typeName, string locator, string findBy)
         {
             var ivar = new CodeMemberField();
             ivar.Attributes = MemberAttributes.Private;
             ivar.Name = name + "_ivar";
-            ivar.Type = new CodeTypeReference("Lazy", new CodeTypeReference(type));
+            ivar.Type = new CodeTypeReference("Lazy", new CodeTypeReference(typeName));
 
             targetClass.Members.Add(ivar);
 
             var property = new CodeMemberProperty();
             property.Attributes = MemberAttributes.Public;
             property.Name = name;
-            property.Type = new CodeTypeReference(type);
+            property.Type = new CodeTypeReference(typeName);
             property.HasGet = true;
 
             var expression = new CodeMethodReturnStatement(
