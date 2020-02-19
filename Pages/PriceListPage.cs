@@ -11,21 +11,16 @@ namespace Pages
         }
     }
 
-    /*public interface Page<T> where T : EstimateWindow
-    {
-       // T Window { get; }
-    }*/
-
     [Page(WindowType = typeof(EstimateWindow))]
     public interface CauseOfLossPage 
     {
-        [Element(Locator="element1")]
+        [Element("element1")]
         Element Element1 { get; }
         
-        [Element(Locator = "element2")]
+        [Element("element2")]
         Element Element2 { get; }
 
-        [Element(Locator = "element4")]
+        [Element("element4")]
         Element element4 { get; }
     }
 
