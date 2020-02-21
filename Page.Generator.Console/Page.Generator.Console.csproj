@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Page.Core\Page.Core.csproj" />
-    <ProjectReference Include="..\PageGenerator\Page.Generator.csproj" />
+    <ProjectReference Include="..\PageGenerator\Page.Generator.BuildTask.csproj" />
   </ItemGroup>
 
 </Project>

@@ -36,7 +36,6 @@ namespace Pages
     {
         public Element(string findBy)
         {
-
         }
 
         public Element child;
