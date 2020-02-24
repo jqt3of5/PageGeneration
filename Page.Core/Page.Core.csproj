@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -6,11 +6,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="TestInterface.cs" />
+    <Compile Remove="TestPageInterface.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="TestInterface.cs" />
+    <None Include="TestPageInterface.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Castle.Core" Version="4.4.0" />
   </ItemGroup>
 
 </Project>
